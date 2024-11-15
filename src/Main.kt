@@ -1,4 +1,7 @@
+val rds = ShoeStore()
+
 fun main() {
+
     do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
@@ -10,6 +13,7 @@ fun main() {
             2 -> showOptionsEmployee()
         }
     } while(option != 3)
+
 }
 
 fun showOptionsCostumer() {
@@ -18,8 +22,14 @@ fun showOptionsCostumer() {
 
     when(option) {
         1 -> null
-        2 -> null
-        3 -> null
+        2 -> rds.showShoeList()
+        3 ->run {
+            println("Name: ")
+            val name: String = readln()
+            println("CPF: ")
+            val cpf: String = readln()
+            rds.addCostumer(Costumer(name, cpf))
+        }
         4 -> return
         else -> null
 
@@ -33,7 +43,7 @@ fun showOptionsEmployee() {
     when(option) {
         1 -> null
         2 -> null
-        3 -> null
+        3 -> rds.showCostumerList()
         4 -> return
         else -> null
     }
