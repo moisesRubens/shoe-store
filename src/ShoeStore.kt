@@ -1,11 +1,12 @@
 class ShoeStore() {
-    fun setShoeList(vararg items: Shoe) {
-        val shoeList = items.toMutableList()
-        println("shoeList : ${shoeList.map{it.type}}")
+    val costumerList = mutableListOf<Costumer>()
+    val shoeList = mutableListOf<Shoe>()
+
+    fun addCostumer(costumer: Costumer) {
+        costumerList.add(costumer)
     }
 
-    fun setCostumerList(vararg costumer: Costumer) {
-        val costumerList = costumer.toMutableList()
-        println("comtumerList: ${costumerList.map{it.name}}")
+    fun addShoe(shoe: Shoe) {
+        shoeList.add(shoe)
     }
 }

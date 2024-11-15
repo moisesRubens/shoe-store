@@ -1,5 +1,5 @@
 fun main() {
-    /*do {
+    do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
         print("Choose an option: ")
@@ -9,13 +9,7 @@ fun main() {
             1 -> showOptionsCostumer()
             2 -> showOptionsEmployee()
         }
-    } while(option != 3)*/
-
-    val rds = ShoeStore()
-    val c1 = Costumer("moises", "06409991312")
-    val c2 = Costumer("otavio", "10374131353")
-
-    rds.setCostumerList(c1, c2)
+    } while(option != 3)
 }
 
 fun showOptionsCostumer() {
