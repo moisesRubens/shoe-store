@@ -1,4 +1,4 @@
-class Shoe(val type: String) {
+class Shoe(var type: String) {
 
 
 }

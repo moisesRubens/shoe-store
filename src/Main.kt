@@ -1,7 +1,6 @@
 val rds = ShoeStore()
-
+val eu = Costumer("Moises", "233")
 fun main() {
-
     do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
@@ -21,7 +20,16 @@ fun showOptionsCostumer() {
     val option = readln().toInt()
 
     when(option) {
-        1 -> null
+        1 -> run {
+            println("Enter your name: ")
+            val name: String = readln()
+            val costumer = rds.costumerListMutable.find {it.name == name}
+            if(costumer == null) return
+            rds.showShoeList()
+            println("Enter the type shoe: ")
+            val type = readln()
+            costumer.buy(rds, type)
+        }
         2 -> rds.showShoeList()
         3 ->run {
             println("Name: ")
