@@ -6,7 +6,7 @@ class Costumer (var name: String, var cpf: String?) {
             println("You cannot buy")
             return
         }
-        val shoe: Shoe? = shoeStore.shoeListMutable.find {it.type == shoeType}
+        val shoe: Shoe? = shoeStore.shoeListMutable.find {it.category == shoeType}
 
         if(shoe == null) {
             println("This shoe does not exist in the stock")

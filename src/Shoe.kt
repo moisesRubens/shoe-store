@@ -1,4 +1,4 @@
-class Shoe(var type: String) {
+class Shoe(var category: String, var id: Int) {
 
 
 }

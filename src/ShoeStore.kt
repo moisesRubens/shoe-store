@@ -17,6 +17,6 @@ class ShoeStore() {
     }
 
     fun showShoeList() {
-        println(shoeList.map{it.type})
+        shoeList.forEach() {it -> println("ID - ${it.id} \nCATEGORY - ${it.category} \n")}
     }
 }
