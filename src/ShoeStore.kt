@@ -1,11 +1,15 @@
 class ShoeStore() {
-    val costumerListMutable = mutableListOf<Costumer>()
-    val costumerList: List<Costumer> = costumerListMutable
+    val costumerListMutable = mutableSetOf<Costumer>()
+    val costumerList: Set<Costumer> = costumerListMutable
     val shoeListMutable = mutableListOf<Shoe>()
     val shoeList: List<Shoe> = shoeListMutable
 
     fun addCostumer(costumer: Costumer) {
-        costumerListMutable.add(costumer)
+        if(costumerListMutable.add(costumer)) {
+            println("Registration successful")
+            return
+        }
+        println("This costumer is already registered")
     }
 
     fun addShoe(shoe: Shoe) {
@@ -13,10 +17,10 @@ class ShoeStore() {
     }
 
     fun showCostumerList() {
-        println(costumerList.map{it.name})
+        costumerList.forEach {println("name: ${it.name} \nCPF: ${it.cpf}") }
     }
 
     fun showShoeList() {
-        shoeList.forEach() {it -> println("ID - ${it.id} \nCATEGORY - ${it.category} \n")}
+        shoeList.forEach() {println("ID - ${it.id} \nCATEGORY - ${it.category}\n")}
     }
 }

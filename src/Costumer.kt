@@ -1,4 +1,4 @@
-class Costumer (var name: String, var cpf: String?) {
+class Costumer (var name: String, var cpf: String) {
     var nonpayment: Boolean = false
 
     fun buy(shoeStore: ShoeStore, shoeType: String) {
