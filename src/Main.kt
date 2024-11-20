@@ -22,7 +22,18 @@ fun showOptionsCostumer() {
     var costumerOption: Int = readln().toInt()
     when(costumerOption) {
         1 -> run {
-            rds.showShoeList()
+            if(rds.showShoeList() == null)
+                return
+            val costumer = Costumer()
+            println("Enter an option as buy: ")
+            val option: Int = readln().toInt()
+            val category: String = when(option) {
+                1 -> "Casual"
+                2 -> "Running"
+                3 -> "Training"
+                else -> ""
+            }
+            val shoeBought: Shoe? = costumer.buy(rds, category)
         }
         2 -> rds.showShoeList()
         3 ->run {
@@ -33,13 +44,12 @@ fun showOptionsCostumer() {
             rds.addCostumer(Costumer(name, cpf))
         }
         4 -> option = 3
-        else -> null
-
+        else -> return
     }
 }
 
 fun showOptionsEmployee() {
-    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER STOCK \n4 - EXIT")
+    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - EXIT")
     val employeeOption = readln().toInt()
 
     when(employeeOption) {
@@ -60,9 +70,9 @@ fun showOptionsEmployee() {
             countShoe = countShoe+1
             println("Shoe created")
         }
-        2 -> null
+        2 -> rds.showShoeList()
         3 -> rds.showCostumerList()
         4 -> option = 3
-        else -> null
+        else -> return
     }
 }
