@@ -1,6 +1,5 @@
 val rds = ShoeStore()
 var option: Int? = null
-var countShoe: Int = 1
 
 fun main() {
     do {
@@ -22,7 +21,7 @@ fun showOptionsCostumer() {
     var costumerOption: Int = readln().toInt()
     when(costumerOption) {
         1 -> run {
-            if(rds.showShoeList() == null)
+            if(rds.shoeList.isEmpty())
                 return
             val costumer = Costumer()
             println("Enter an option as buy: ")
@@ -47,29 +46,12 @@ fun showOptionsCostumer() {
         else -> return
     }
 }
-
 fun showOptionsEmployee() {
     println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - EXIT")
     val employeeOption = readln().toInt()
 
     when(employeeOption) {
-        1 -> run {
-            println("Category of shoe: \n1 - Casual \n2 - Running \n3 - Training")
-            val option: Int = readln().toInt()
-            val category: String = when(option) {
-                1 -> "Casual"
-                2 -> "Running"
-                3 -> "Training"
-                else -> run {
-                    println("Error")
-                    return
-                }
-            }
-            val shoe = Shoe(category, countShoe)
-            rds.addShoe(shoe)
-            countShoe = countShoe+1
-            println("Shoe created")
-        }
+        1 -> rds.addShoe()
         2 -> rds.showShoeList()
         3 -> rds.showCostumerList()
         4 -> option = 3
