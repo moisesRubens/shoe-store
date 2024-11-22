@@ -13,7 +13,6 @@ fun main() {
             2 -> showOptionsEmployee()
         }
     } while(option != 3)
-
 }
 
 fun showOptionsCostumer() {
@@ -25,11 +24,11 @@ fun showOptionsCostumer() {
                 println("Empty stock")
                 return
             }
-            val costumer = Costumer()
+            val customer = Customer()
             rds.showShoeList()
             println("Enter an option as buy: ")
             val option: Int = readln().toInt()
-            val shoeBought: Shoe? = costumer.buy(rds, option)
+            val shoeBought: Shoe? = customer.buy(rds, option)
         }
         2 -> rds.showShoeList()
         3 ->run {
@@ -37,10 +36,13 @@ fun showOptionsCostumer() {
             val name: String = readln()
             println("CPF: ")
             val cpf: String = readln()
-            rds.addCostumer(Costumer(name, cpf))
+            rds.addCostumer(Customer(name, cpf))
         }
         4 -> option = 3
-        else -> return
+        else -> {
+            println("Choose a valid option")
+            showOptionsCostumer()
+        }
     }
 }
 fun showOptionsEmployee() {
@@ -52,6 +54,9 @@ fun showOptionsEmployee() {
         2 -> rds.showShoeList()
         3 -> rds.showCostumerList()
         4 -> option = 3
-        else -> return
+        else -> {
+            println("Choose a valid option")
+            showOptionsEmployee()
+        }
     }
 }

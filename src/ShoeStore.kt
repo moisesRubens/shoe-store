@@ -1,16 +1,26 @@
 class ShoeStore() {
     var countShoe: Int = 1
-    val costumerListMutable = mutableSetOf<Costumer>()
-    val costumerList: Set<Costumer> = costumerListMutable
+    val mutableEmployeeList = mutableListOf<Employee>()
+    val employeeList: List<Employee> = mutableEmployeeList
+    val customerListMutable = mutableSetOf<Customer>()
+    val customerList: Set<Customer> = customerListMutable
     val shoeListMutable = mutableListOf<Shoe>()
     val shoeList: List<Shoe> = shoeListMutable
 
-    fun addCostumer(costumer: Costumer) {
-        if (costumerListMutable.add(costumer)) {
-            println("Registration successful")
+    fun addEmployee(employee: Employee) {
+        if(employeeList.contains(employee)) {
+            println("Employee already registered")
             return
         }
-        println("This costumer is already registered")
+        mutableEmployeeList.add(employee).also{ println("Employee registered") }
+    }
+
+    fun addCostumer(customer: Customer) {
+        if (customerListMutable.contains(customer)) {
+            println("Customer already registered")
+            return
+        }
+        customerListMutable.add(customer).also {println("Customer registered")}
     }
 
     fun addShoe() {
@@ -37,16 +47,18 @@ class ShoeStore() {
     }
 
     fun showCostumerList() {
-        if (costumerList.isEmpty()) {
+        if (customerList.isEmpty()) {
             println("There is no costumer in list")
             return
         }
-        costumerList.forEach { println("name: ${it.name} \nCPF: ${it.cpf}") }
+        customerList.forEach { println("name: ${it.name} \nCPF: ${it.cpf}") }
     }
 
     fun showShoeList() {
-        if (shoeList.isEmpty())
+        if (shoeList.isEmpty()) {
             println("There is no shoe in the stock")
+            return
+        }
 
         println("Choose a category: \n1 - FEMININO \n2 - MASCULINO \n3 - INFANTIL")
         val option: Int = readln().toInt()
