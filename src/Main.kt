@@ -21,18 +21,15 @@ fun showOptionsCostumer() {
     var costumerOption: Int = readln().toInt()
     when(costumerOption) {
         1 -> run {
-            if(rds.shoeList.isEmpty())
+            if(rds.shoeList.isEmpty()) {
+                println("Empty stock")
                 return
+            }
             val costumer = Costumer()
+            rds.showShoeList()
             println("Enter an option as buy: ")
             val option: Int = readln().toInt()
-            val category: String = when(option) {
-                1 -> "Casual"
-                2 -> "Running"
-                3 -> "Training"
-                else -> ""
-            }
-            val shoeBought: Shoe? = costumer.buy(rds, category)
+            val shoeBought: Shoe? = costumer.buy(rds, option)
         }
         2 -> rds.showShoeList()
         3 ->run {

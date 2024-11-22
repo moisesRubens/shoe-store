@@ -56,13 +56,16 @@ class ShoeStore() {
             3 -> "INFANTIL"
             else -> ""
         }
+        var thereItem: Boolean = false
         shoeList.forEach() {
-            if (!it.category.equals(category)) {
-                println("There are shoes of this type")
-
-
-                println("(${it.id}) ${it.description} - ${it.size} - ${it.price}")
+            if (it.category.equals(category)) {
+                thereItem = true
+                println("(${it.id}) ${it.description}\n    Size: ${it.size}\n    Price: ${it.price}")
             }
         }
+        if(thereItem == false)
+            println("There is not a show in that category")
+
+
     }
 }
