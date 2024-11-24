@@ -7,7 +7,12 @@ class ShoeStore() {
     val shoeListMutable = mutableListOf<Shoe>()
     val shoeList: List<Shoe> = shoeListMutable
 
-    fun addEmployee(employee: Employee) {
+    fun addEmployee() {
+        println("Name: ")
+        val name: String = readln()
+        println("CPF: ")
+        val cpf: String = readln()
+        val employee = Employee(name, cpf)
         if(employeeList.contains(employee)) {
             println("Employee already registered")
             return
@@ -43,11 +48,10 @@ class ShoeStore() {
 
         repeat(quantity) {
             val shoe = Shoe(category, description, size, price, countShoe)
-            shoeListMutable.add(shoe).also {
-                println("Shoe(s) registered")
-            }
+            shoeListMutable.add(shoe)
             countShoe = countShoe + 1
         }
+        println("Shoe(s) registered")
     }
 
     fun showCostumerList() {

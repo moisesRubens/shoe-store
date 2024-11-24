@@ -1,3 +1,5 @@
+import kotlin.math.E
+
 val rds = ShoeStore()
 var option: Int? = null
 
@@ -47,14 +49,26 @@ fun showOptionsCostumer() {
     }
 }
 fun showOptionsEmployee() {
-    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - EXIT")
+    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - REGISTER \n5 - EXIT")
     val employeeOption = readln().toInt()
 
     when(employeeOption) {
-        1 -> rds.addShoe()
+        1 -> run {
+            println("Enter your name: ")
+            val name: String = readln()
+            println("Enter your cpf: ")
+            val cpf: String = readln()
+            val employee = Employee(name, cpf)
+            if(!rds.employeeList.contains(employee)) {
+                println("Error")
+                return
+            }
+            employee.addShoe(rds)
+        }
         2 -> rds.showShoeList()
         3 -> rds.showCostumerList()
-        4 -> option = 3
+        4 -> rds.addEmployee()
+        5 -> option = 3
         else -> {
             println("Choose a valid option")
             showOptionsEmployee()
