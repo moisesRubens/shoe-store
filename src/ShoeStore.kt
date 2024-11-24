@@ -26,7 +26,7 @@ class ShoeStore() {
     fun addShoe() {
         println("Choose a category: \n1 - FEMININO \n2 - MASCULINO \n3 - INFANTIL")
         val option: Int = readln().toInt()
-        val category: String = when (option) {
+        val category: String = when(option) {
             1 -> "FEMININO"
             2 -> "MASCULINO"
             3 -> "INFANTIL"
@@ -38,12 +38,16 @@ class ShoeStore() {
         val size: Float = readln().toFloat()
         println("Price: ")
         val price: Double = readln().toDouble()
+        println("Enter a quanitity: ")
+        var quantity: Int = readln().toInt()
 
-        val shoe = Shoe(category, description, size, price, countShoe)
-        shoeListMutable.add(shoe).also {
-            println("Shoe created")
+        repeat(quantity) {
+            val shoe = Shoe(category, description, size, price, countShoe)
+            shoeListMutable.add(shoe).also {
+                println("Shoe(s) registered")
+            }
+            countShoe = countShoe + 1
         }
-        countShoe = countShoe + 1
     }
 
     fun showCostumerList() {
