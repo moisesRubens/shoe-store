@@ -31,7 +31,13 @@ fun showOptionsCostumer() {
             rds.showShoeList()
             println("Enter an option as buy: ")
             val option: Int = readln().toInt()
-            val shoeBought: Shoe? = customer.buy(rds, option)
+            println("Enter an quantity: ")
+            val quantity: Int = readln().toInt()
+            val order: Order? = customer.buy(rds, option, quantity)
+            if(order != null)
+                order.getOrder()
+            else
+                println("Deu null")
         }
         2 -> rds.showShoeList()
         3 ->run {
