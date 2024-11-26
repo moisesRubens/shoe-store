@@ -1,55 +1,68 @@
 class Customer (var name: String = "", var cpf: String = "") {
     var nonpayment: Boolean = false
 
-    fun buy(shoeStore: ShoeStore, index: Int, quantity: Int): Order? {
-        if(nonpayment) {
-            println("You cannot buy")
-            return null
+    fun buy(): Order? {
+        val customer = Customer()
+        when {
+            rds.shoeList.isEmpty() -> {
+                println("Empty stock")
+                return null
+            }
+            customer.nonpayment -> {
+                println("Error. You are nopayment")
+                return null
+            }
         }
-        val shoe: Shoe? = shoeStore.shoeListMutable.find { it.id == index }
+        rds.showShoeList()
+        println("Enter an option as buy: ")
+        val option1: Int = readln().toInt()
+        println("Enter an quantity: ")
+        val quantity: Int = readln().toInt()
 
+        val shoe: Shoe? = rds.shoeListMutable.find { it.id == option1 }
         if(shoe == null) {
-            println("This shoe does not exist in the stock")
+            println("This shoe does not in the stock")
             return null
         }
-
-        if(quantity > shoeStore.shoeList.count { it == shoe }) {
-            println("Foi aqui")
-            return null
-        }
-
-        println("1 - ONE-TIME PAYMENT\n 2 - INSTALLMENT PAYMENT")
+        println("Total value: ${shoe.price * quantity}")
+        println("1 - ONE-TIME PAYMENT \n2 - INSTALLMENT PAYMENT")
         val option = readln().toInt()
-        val paymentMethod: String = when(option) {
+        var paymentMethod: String = when(option) {
             1 -> "ONE-TIME PAYMENT"
             2 -> "INSTALLMENT PAYMENT"
-            else -> ""
+            else -> {
+                println("Enter an available option")
+                return null
+            }
         }
-        val payment: Double
+        var payment: Double = 0.0
         var inputValue: Double = 0.0
         if(option == 1) {
+            println("Enter with a payment: ")
             payment = readln().toDouble()
-            if(payment < shoe.price*quantity)
+            if(payment < shoe.price*quantity) {
+                println("Error. Enter a suficient value")
                 return null
+            }
         } else if(option == 2) {
             println("1 - INPUT VALUE\n 2 - NO")
             val input: Int = readln().toInt()
             if(input == 1) {
-                println("Value: ")
+                println("Input value: ")
                 inputValue = readln().toDouble()
             }
             println("Installment count(1 - 10): ")
-            var installment = readln().toInt()
+            val installment = readln().toInt()
             if(installment<1 || installment>10)
                 return null
         } else
             return null
 
         repeat(quantity) {
-            shoeStore.shoeListMutable.remove(shoe)
-        }.also { println("Shoe(s) removed") }
+            rds.shoeListMutable.remove(shoe)
+        }.also { println("Purchase successful") }
 
-        val order = Order(shoe, quantity, paymentMethod, inputValue)
+        val order = Order(shoe, customer)
         return order
     }
 }

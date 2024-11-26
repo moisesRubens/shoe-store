@@ -1,9 +1,10 @@
 import kotlin.math.E
 
 val rds = ShoeStore()
-var option: Int? = null
+
 
 fun main() {
+    var option: Int? = null
     do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
@@ -22,25 +23,12 @@ fun showOptionsCostumer() {
     println("1 - BUY \n2 - VIEW SHOES \n3 - REGISTER \n4 - EXIT")
     var costumerOption: Int = readln().toInt()
     when(costumerOption) {
-        1 -> run {
-            if(rds.shoeList.isEmpty()) {
-                println("Empty stock")
-                return
-            }
+        1 -> {
             val customer = Customer()
-            rds.showShoeList()
-            println("Enter an option as buy: ")
-            val option: Int = readln().toInt()
-            println("Enter an quantity: ")
-            val quantity: Int = readln().toInt()
-            val order: Order? = customer.buy(rds, option, quantity)
-            if(order != null)
-                order.getOrder()
-            else
-                println("Deu null")
+            val order = customer.buy()
         }
         2 -> rds.showShoeList()
-        3 ->run {
+        3 -> {
             println("Name: ")
             val name: String = readln()
             println("CPF: ")
@@ -59,7 +47,7 @@ fun showOptionsEmployee() {
     val employeeOption = readln().toInt()
 
     when(employeeOption) {
-        1 -> run {
+        1 -> {
             println("Enter your name: ")
             val name: String = readln()
             println("Enter your cpf: ")

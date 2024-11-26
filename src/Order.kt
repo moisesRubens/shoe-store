@@ -1,11 +1,19 @@
-class Order(val shoe: Shoe, var quantity: Int, var paymentMethod: String, inputValue: Double = 0.0) {
-    var unitValue: Double = shoe.price
-    var totalValue: Double = unitValue*quantity
-    var pendingAmount: Double = totalValue-inputValue
-    var description: String = shoe.description
-
-    fun getOrder() {
-        println("DESCRIPTION: $description")
-        println("TOTAL VALUE: $totalValue")
+class Order(val shoe: Shoe, val customer: Customer) {
+    fun getOrder(quantity: Int, paymentMethod: String, installments: Int? = null) {
+        println("\nORDER\n")
+        println("CUSTOMER INFORMATION: ")
+        println("Name: ${customer.name}")
+        println("Cpf: ${customer.cpf}\n")
+        println("ORDER DESCRIPTION: ")
+        println("${shoe.category} - ${shoe.description}")
+        println("Size: ${shoe.size}")
+        println("Unit value: ${shoe.price}")
+        println(" ")
+        println("TOTAL VALUE: ${shoe.price*quantity}")
+        println("PAYMENT METHOD: $paymentMethod")
+        if(paymentMethod.equals("INSTALLMENT PAYMENT")) {
+            println("INSTALLMENTS: $installments")
+            println("AMOUNT PENDING: ${shoe.price * quantity}")
+        }
     }
 }
