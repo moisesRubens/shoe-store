@@ -1,8 +1,7 @@
 class Customer (var name: String = "", var cpf: String = "") {
     var nonpayment: Boolean = false
 
-    fun buy(): Order? {
-        val customer = Customer()
+    fun buy(customer: Customer): Shoe? {
         when {
             rds.shoeList.isEmpty() -> {
                 println("Empty stock")
@@ -62,7 +61,6 @@ class Customer (var name: String = "", var cpf: String = "") {
             rds.shoeListMutable.remove(shoe)
         }.also { println("Purchase successful") }
 
-        val order = Order(shoe, customer)
-        return order
+        return shoe
     }
 }

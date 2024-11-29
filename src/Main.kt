@@ -1,10 +1,9 @@
 import kotlin.math.E
-
+var option: Int? = null
 val rds = ShoeStore()
 
 
 fun main() {
-    var option: Int? = null
     do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
@@ -25,7 +24,9 @@ fun showOptionsCostumer() {
     when(costumerOption) {
         1 -> {
             val customer = Customer()
-            val order = customer.buy()
+            val shoe: Shoe? = customer.buy(customer)
+            val order = shoe?.let { Order(it, customer) }
+            order?.getOrder(1, "ONE-TIME PAYMENT")
         }
         2 -> rds.showShoeList()
         3 -> {
