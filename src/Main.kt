@@ -24,9 +24,10 @@ fun showOptionsCostumer() {
     when(costumerOption) {
         1 -> {
             val customer = Customer()
-            val shoe: Shoe? = customer.buy(customer)
-            val order = shoe?.let { Order(it, customer) }
-            order?.getOrder(1, "ONE-TIME PAYMENT")
+            val result = customer.buy(customer)
+            val shoe: Shoe? = result?.find { it is Shoe } as? Shoe
+            val order = shoe?.let { Order(it, customer, result) }
+            order?.getOrder()
         }
         2 -> rds.showShoeList()
         3 -> {

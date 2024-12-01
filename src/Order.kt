@@ -1,5 +1,6 @@
-class Order(val shoe: Shoe, val customer: Customer) {
-    fun getOrder(quantity: Int, paymentMethod: String, installments: Int? = null) {
+class Order(val shoe: Shoe, val customer: Customer, var collection: Collection<Any>) {
+    fun getOrder() {
+        val paymentMethod = collection.find { it is String }
         println("\nORDER\n")
         println("CUSTOMER INFORMATION: ")
         println("Name: ${customer.name}")
@@ -9,11 +10,12 @@ class Order(val shoe: Shoe, val customer: Customer) {
         println("Size: ${shoe.size}")
         println("Unit value: ${shoe.price}")
         println(" ")
-        println("TOTAL VALUE: ${shoe.price*quantity}")
+        println("TOTAL VALUE: ${shoe?.price?.times(collection.find { it is Double } as? Double? ?: 0.0)}")
         println("PAYMENT METHOD: $paymentMethod")
-        if(paymentMethod.equals("INSTALLMENT PAYMENT")) {
-            println("INSTALLMENTS: $installments")
-            println("AMOUNT PENDING: ${shoe.price * quantity}")
+        if(paymentMethod == "INSTALLMENT PAYMENT") {
+            println("INSTALLMENTS: ${collection.find { it is Int }}")
+            println("AMOUNT PENDING: ${shoe?.price?.times(collection.find { it is Double } as? Double ?: 0.0)}")
+
         }
     }
 }

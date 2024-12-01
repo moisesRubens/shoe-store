@@ -1,7 +1,8 @@
 class Customer (var name: String = "", var cpf: String = "") {
     var nonpayment: Boolean = false
 
-    fun buy(customer: Customer): Shoe? {
+    fun buy(customer: Customer): MutableList<Any>? {
+        val collection = mutableListOf<Any>()
         when {
             rds.shoeList.isEmpty() -> {
                 println("Empty stock")
@@ -17,18 +18,23 @@ class Customer (var name: String = "", var cpf: String = "") {
         val option1: Int = readln().toInt()
         println("Enter an quantity: ")
         val quantity: Int = readln().toInt()
+        collection.add(quantity)
 
-        val shoe: Shoe? = rds.shoeListMutable.find { it.id == option1 }
+        val shoe: Shoe? = rds.shoeListMutable.find { it.id == option1 }?.also { collection.add(it) }
         if(shoe == null) {
             println("This shoe does not in the stock")
             return null
         }
         println("Total value: ${shoe.price * quantity}")
+        println("Enter your name: ")
+        customer.name = readln()
+        println("Enter your cpf: ")
+        customer.cpf = readln()
         println("1 - ONE-TIME PAYMENT \n2 - INSTALLMENT PAYMENT")
         val option = readln().toInt()
         var paymentMethod: String = when(option) {
-            1 -> "ONE-TIME PAYMENT"
-            2 -> "INSTALLMENT PAYMENT"
+            1 -> "ONE-TIME PAYMENT".also { collection.add(it) }
+            2 -> "INSTALLMENT PAYMENT".also { collection.add(it) }
             else -> {
                 println("Enter an available option")
                 return null
@@ -51,7 +57,7 @@ class Customer (var name: String = "", var cpf: String = "") {
                 inputValue = readln().toDouble()
             }
             println("Installment count(1 - 10): ")
-            val installment = readln().toInt()
+            val installment = readln().toInt().also { collection.add(it) }
             if(installment<1 || installment>10)
                 return null
         } else
@@ -61,6 +67,6 @@ class Customer (var name: String = "", var cpf: String = "") {
             rds.shoeListMutable.remove(shoe)
         }.also { println("Purchase successful") }
 
-        return shoe
+        return collection
     }
 }
