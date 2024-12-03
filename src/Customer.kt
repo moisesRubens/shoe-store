@@ -1,7 +1,9 @@
+
+
 class Customer (var name: String = "", var cpf: String = "") {
     var nonpayment: Boolean = false
 
-    fun buy(customer: Customer): MutableList<Any>? {
+    fun buy(customer: Customer, store: ShoeStore): MutableList<Any>? {
         val collection = mutableListOf<Any>()
         when {
             rds.shoeList.isEmpty() -> {
@@ -13,19 +15,23 @@ class Customer (var name: String = "", var cpf: String = "") {
                 return null
             }
         }
-        rds.showShoeList()
+        if(rds.showShoeList() == false)
+            return null
+
         println("Enter an option as buy: ")
         val option1: Int = readln().toInt()
         println("Enter an quantity: ")
         val quantity: Int = readln().toInt()
-        collection.add(quantity)
 
-        val shoe: Shoe? = rds.shoeListMutable.find { it.id == option1 }?.also { collection.add(it) }
-        if(shoe == null) {
-            println("This shoe does not in the stock")
+        if(quantity > store.shoeListMutable.count{ it.id == option1} || quantity < 1)
             return null
+
+        repeat(quantity) {
+            collection.add(store.shoeListMutable.removeAt(option1-1))
         }
-        println("Total value: ${shoe.price * quantity}")
+
+        val shoe = collection[0] as Shoe
+        println("Total value: ${ shoe.price * quantity}")
         println("Enter your name: ")
         customer.name = readln()
         println("Enter your cpf: ")

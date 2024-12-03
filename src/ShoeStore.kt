@@ -47,10 +47,9 @@ class ShoeStore() {
         var quantity: Int = readln().toInt()
 
         repeat(quantity) {
-            val shoe = Shoe(category, description, size, price, countShoe)
-            shoeListMutable.add(shoe)
-            countShoe = countShoe + 1
+            shoeListMutable.add(Shoe(category, description, size, price, countShoe))
         }
+        countShoe = countShoe+1
         println("Shoe(s) registered")
     }
 
@@ -62,30 +61,35 @@ class ShoeStore() {
         customerList.forEach { println("name: ${it.name} \nCPF: ${it.cpf}") }
     }
 
-    fun showShoeList() {
+    fun showShoeList(): Boolean{
         if (shoeList.isEmpty()) {
-            println("There is no shoe in the stock")
-            return
+            println("Empty stock")
+            return false
         }
 
         println("Choose a category: \n1 - FEMININO \n2 - MASCULINO \n3 - INFANTIL")
         val option: Int = readln().toInt()
-        var category: String = when (option) {
+        var category: String = when(option) {
             1 -> "FEMININO"
             2 -> "MASCULINO"
             3 -> "INFANTIL"
             else -> ""
         }
+
         var thereItem: Boolean = false
+        val shownId = mutableListOf<Int>()
+
         shoeList.forEach() {
-            if (it.category.equals(category)) {
+            if ((it.category == category) && (it.id !in shownId)) {
                 thereItem = true
+                shownId.add(it.id)
                 println("(${it.id}) ${it.description}\n    Size: ${it.size}\n    Price: ${it.price}")
             }
         }
-        if(thereItem == false)
-            println("There is not a show in that category")
-
-
+        if (thereItem == false) {
+            println("There is not a shoe")
+            return false
+        } else
+            return true
     }
 }

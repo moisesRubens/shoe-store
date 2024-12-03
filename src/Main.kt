@@ -24,7 +24,7 @@ fun showOptionsCostumer() {
     when(costumerOption) {
         1 -> {
             val customer = Customer()
-            val result = customer.buy(customer)
+            val result = customer.buy(customer, rds)
             val shoe: Shoe? = result?.find { it is Shoe } as? Shoe
             val order = shoe?.let { Order(it, customer, result) }
             order?.getOrder()
