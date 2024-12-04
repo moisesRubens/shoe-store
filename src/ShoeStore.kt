@@ -6,6 +6,7 @@ class ShoeStore() {
     val customerList: Set<Customer> = customerListMutable
     val shoeListMutable = mutableListOf<Shoe>()
     val shoeList: List<Shoe> = shoeListMutable
+    val descriptionShoes = mutableListOf<String>()
 
     fun addEmployee() {
         println("Name: ")
@@ -39,6 +40,8 @@ class ShoeStore() {
         }
         println("Enter a description: ")
         val description: String = readln()
+        if(!descriptionShoes.contains(description))
+            descriptionShoes.add(description)
         println("Shoe size: ")
         val size: Float = readln().toFloat()
         println("Price: ")
@@ -79,13 +82,17 @@ class ShoeStore() {
         var thereItem: Boolean = false
         val shownId = mutableListOf<Int>()
 
-        shoeList.forEach() {
-            if ((it.category == category) && (it.id !in shownId)) {
+        shoeList.forEach { shoe ->
+            if ((shoe.category == category) && (shoe.id !in shownId)) {
                 thereItem = true
-                shownId.add(it.id)
-                println("(${it.id}) ${it.description}\n    Size: ${it.size}\n    Price: ${it.price}")
+                shownId.add(shoe.id)
+
+                val totalQuantity = shoeList.count { it.description == shoe.description }
+
+                println("quantity: $totalQuantity\n    (${shoe.id}) ${shoe.description}\n    Size: ${shoe.size}\n    Price: ${shoe.price}")
             }
         }
+
         if (thereItem == false) {
             println("There is not a shoe")
             return false
