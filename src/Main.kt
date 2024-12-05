@@ -45,7 +45,7 @@ fun showOptionsCostumer() {
     }
 }
 fun showOptionsEmployee() {
-    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - REGISTER \n5 - EXIT")
+    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - REGISTER \n5 - VIEW EMPLOYEE LIST \n6 - EXIT")
     val employeeOption = readln().toInt()
 
     when(employeeOption) {
@@ -64,7 +64,8 @@ fun showOptionsEmployee() {
         2 -> rds.showShoeList()
         3 -> rds.showCostumerList()
         4 -> rds.addEmployee()
-        5 -> option = 3
+        5 -> println(rds.showEmplyeeList())
+        6 -> option = 3
         else -> {
             println("Choose a valid option")
             showOptionsEmployee()

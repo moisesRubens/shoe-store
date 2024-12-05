@@ -1,3 +1,6 @@
+import java.io.File
+
+
 class ShoeStore() {
     var countShoe: Int = 1
     val mutableEmployeeList = mutableListOf<Employee>()
@@ -8,17 +11,25 @@ class ShoeStore() {
     val shoeList: List<Shoe> = shoeListMutable
     val descriptionShoes = mutableListOf<String>()
 
+    //TESTE DE MANIPULACAO
+    var fp: File? = null
     fun addEmployee() {
         println("Name: ")
         val name: String = readln()
         println("CPF: ")
         val cpf: String = readln()
+        if (cpf.length != 11) {
+            println("Enter a valid CPF")
+        return
+        }
         val employee = Employee(name, cpf)
         if(employeeList.contains(employee)) {
             println("Employee already registered")
             return
         }
         mutableEmployeeList.add(employee).also{ println("Employee registered") }
+        fp = File("relatorio_employees.txt")
+        fp?.appendText("Name: ${employee.name} \nCPF: ${employee.cpf} \n\n" )
     }
 
     fun addCostumer(customer: Customer) {
@@ -98,5 +109,10 @@ class ShoeStore() {
             return false
         } else
             return true
+    }
+
+    fun showEmplyeeList(): String {
+        fp = File("relatorio_employees.txt")
+        return fp?.readText() ?: "This txt file is empty"
     }
 }
