@@ -18,10 +18,10 @@ class ShoeStore() {
         val name: String = readln()
         println("CPF: ")
         val cpf: String = readln()
-        if (cpf.length != 11) {
+        /*if (cpf.length != 11) {
             println("Enter a valid CPF")
         return
-        }
+        }*/
         val employee = Employee(name, cpf)
         if(employeeList.contains(employee)) {
             println("Employee already registered")
@@ -99,7 +99,6 @@ class ShoeStore() {
                 shownId.add(shoe.id)
 
                 val totalQuantity = shoeList.count { it.description == shoe.description }
-
                 println("quantity: $totalQuantity\n    (${shoe.id}) ${shoe.description}\n    Size: ${shoe.size}\n    Price: ${shoe.price}")
             }
         }

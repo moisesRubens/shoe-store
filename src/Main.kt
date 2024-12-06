@@ -45,7 +45,7 @@ fun showOptionsCostumer() {
     }
 }
 fun showOptionsEmployee() {
-    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - REGISTER \n5 - VIEW EMPLOYEE LIST \n6 - EXIT")
+    println("1 - REGISTER SHOE \n2 - VIEW SHOE STOCK \n3 - VIEW COSTUMER LIST \n4 - REGISTER AS EMPLOYEE \n5 - VIEW EMPLOYEE LIST \n6 - EXIT")
     val employeeOption = readln().toInt()
 
     when(employeeOption) {

@@ -11,7 +11,7 @@ class Customer (var name: String = "", var cpf: String = "") {
                 return null
             }
             customer.nonpayment -> {
-                println("Error. You are nopayment")
+                println("Error. You are nonpayment")
                 return null
             }
         }
@@ -22,16 +22,15 @@ class Customer (var name: String = "", var cpf: String = "") {
         val option1: Int = readln().toInt()
         println("Enter an quantity: ")
         val quantity: Int = readln().toInt()
-
-        if(quantity > store.shoeListMutable.count{ it.id == option1} || quantity < 1)
+        if(quantity > store.shoeListMutable.count{ it.id == option1} || quantity < 1) {
+            println("Enter a valid quantity")
             return null
-
-        repeat(quantity) {
-            collection.add(store.shoeListMutable.removeAt(option1-1))
         }
+        val shoes: List<Shoe> = store.shoeListMutable.filter { it.id == option1 }.take(quantity)
+        collection.addAll(shoes)
+        shoes.forEach { store.shoeListMutable.remove(it) }
 
-        val shoe = collection[0] as Shoe
-        println("Total value: ${ shoe.price * quantity}")
+        println("Total value: ${ shoes[0].price * quantity}")
         println("Enter your name: ")
         customer.name = readln()
         println("Enter your cpf: ")
@@ -51,11 +50,11 @@ class Customer (var name: String = "", var cpf: String = "") {
         if(option == 1) {
             println("Enter with a payment: ")
             payment = readln().toDouble()
-            if(payment < shoe.price*quantity) {
+            if(payment < shoes[0].price*quantity) {
                 println("Error. Enter a suficient value")
                 return null
             }
-        } else if(option == 2) {
+        } else {
             println("1 - INPUT VALUE\n 2 - NO")
             val input: Int = readln().toInt()
             if(input == 1) {
@@ -63,15 +62,11 @@ class Customer (var name: String = "", var cpf: String = "") {
                 inputValue = readln().toDouble()
             }
             println("Installment count(1 - 10): ")
-            val installment = readln().toInt().also { collection.add(it) }
-            if(installment<1 || installment>10)
+            val installments = readln().toInt()
+            if(installments<1 || installments>10)
                 return null
-        } else
-            return null
-
-        repeat(quantity) {
-            rds.shoeListMutable.remove(shoe)
-        }.also { println("Purchase successful") }
+            collection.add(installments)
+        }
 
         return collection
     }
