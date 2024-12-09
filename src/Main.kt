@@ -4,6 +4,7 @@ val rds = ShoeStore()
 
 
 fun main() {
+
     do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
@@ -15,7 +16,6 @@ fun main() {
             2 -> showOptionsEmployee()
         }
     } while(option != 3)
-
 }
 
 fun showOptionsCostumer() {
@@ -24,10 +24,13 @@ fun showOptionsCostumer() {
     when(costumerOption) {
         1 -> {
             val customer = Customer()
-            val result = customer.buy(customer, rds)
-            val shoe: Shoe? = result?.find { it is Shoe } as? Shoe
-            val order = shoe?.let { Order(it, customer, result) }
-            order?.getOrder()
+            val result: MutableList<Any>? = customer.buy(customer, rds)
+            if(result?.filterIsInstance<Shoe>() == null) {
+                println("You do not bought a shoe.")
+                return
+            }
+            val order = Order(result)
+            order.getOrder(customer)
         }
         2 -> rds.showShoeList()
         3 -> {

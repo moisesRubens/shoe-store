@@ -26,6 +26,7 @@ class Customer (var name: String = "", var cpf: String = "") {
             println("Enter a valid quantity")
             return null
         }
+        collection.add(quantity)
         val shoes: List<Shoe> = store.shoeListMutable.filter { it.id == option1 }.take(quantity)
         collection.addAll(shoes)
         shoes.forEach { store.shoeListMutable.remove(it) }
@@ -48,7 +49,7 @@ class Customer (var name: String = "", var cpf: String = "") {
         var payment: Double = 0.0
         var inputValue: Double = 0.0
         if(option == 1) {
-            println("Enter with a payment: ")
+            println("Enter the payment: ")
             payment = readln().toDouble()
             if(payment < shoes[0].price*quantity) {
                 println("Error. Enter a suficient value")
@@ -57,15 +58,21 @@ class Customer (var name: String = "", var cpf: String = "") {
         } else {
             println("1 - INPUT VALUE\n 2 - NO")
             val input: Int = readln().toInt()
+            var amountPending: Double = shoes[0].price * quantity
+
             if(input == 1) {
-                println("Input value: ")
+                println("Entry amount: ")
                 inputValue = readln().toDouble()
+                amountPending = amountPending - inputValue
             }
-            println("Installment count(1 - 10): ")
+            collection.add(amountPending)
+            println("Number of installments(1 - 10): ")
             val installments = readln().toInt()
             if(installments<1 || installments>10)
                 return null
             collection.add(installments)
+            val installmentsPrice: Double = amountPending / installments
+            collection.add(installmentsPrice)
         }
 
         return collection
