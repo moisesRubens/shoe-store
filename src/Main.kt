@@ -20,7 +20,7 @@ fun main() {
 
 fun showOptionsCostumer() {
     println("1 - BUY \n2 - VIEW SHOES \n3 - REGISTER \n4 - EXIT")
-    var costumerOption: Int = readln().toInt()
+    val costumerOption: Int = readln().toInt()
     when(costumerOption) {
         1 -> {
             val customer = Customer()
