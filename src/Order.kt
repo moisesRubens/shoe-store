@@ -27,7 +27,6 @@ class Order(val collection: MutableList<Any>) {
             }
             println("QUANTITY INSTALLMENTS: ${ints[1]}")
             println("INSTALLMENT VALUE: %.2f".format(doubles[1]))
-
         }
     }
 }
