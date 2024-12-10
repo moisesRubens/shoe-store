@@ -23,10 +23,11 @@ class Order(val collection: MutableList<Any>) {
         println("PAYMENT METHOD: ${strings[0]}")
         if (strings[0] == "INSTALLMENT PAYMENT") {
             if(doubles[0] < shoes[0].price*ints[0]) {
-                println("AMOUNT PENDING: ${doubles[0]}")
+                println("AMOUNT PENDING: %.2f".format(doubles[0]))
             }
             println("QUANTITY INSTALLMENTS: ${ints[1]}")
-            println("INSTALLMENT VALUE: ${doubles[1]}")
+            println("INSTALLMENT VALUE: %.2f".format(doubles[1]))
+
         }
     }
 }
