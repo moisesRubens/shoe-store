@@ -101,7 +101,7 @@ class ShoeStore() {
                 val totalQuantity = shoeList.count { it.description == shoe.description }
                 println("(${shoe.id}) ${shoe.description}\n    Quantity: $totalQuantity\n    Size: ${shoe.size}\n    Price: ${shoe.price}")
             }
-        }//
+        }
 
         if (thereItem == false) {
             println("There is not a shoe")

@@ -29,4 +29,8 @@ class Order(val collection: MutableList<Any>) {
             println("INSTALLMENT VALUE: %.2f".format(doubles[1]))
         }
     }
+
+    fun getShoes(): MutableList<Shoe> {
+        return collection.filterIsInstance<Shoe>().toMutableList()
+    }
 }

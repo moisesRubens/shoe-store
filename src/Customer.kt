@@ -1,37 +1,37 @@
 
 
 class Customer (var name: String = "", var cpf: String = "") {
+
     var nonpayment: Boolean = false
 
-    fun buy(customer: Customer, store: ShoeStore): MutableList<Any>? {
+    fun buy(customer: Customer, store: ShoeStore): Order? {
         val collection = mutableListOf<Any>()
-        when {
-            rds.shoeList.isEmpty() -> {
-                println("Empty stock")
-                return null
-            }
-            customer.nonpayment -> {
-                println("Error. You are nonpayment")
-                return null
-            }
-        }
-        if(rds.showShoeList() == false)
+
+        if(rds.shoeList.isEmpty() || customer.nonpayment || !rds.showShoeList())
             return null
 
-        println("Enter an option as buy: ")
-        val option1: Int = readln().toInt()
-        println("Enter an quantity: ")
+        println("Enter the ID of the shoe: ")
+        val optionId: Int = readln().toInt()
+        println("Enter the quantity of shoes: ")
         val quantity: Int = readln().toInt()
-        if(quantity > store.shoeListMutable.count{ it.id == option1} || quantity < 1) {
+
+        if(quantity > store.shoeListMutable.count{ it.id == optionId} || quantity < 1) {
             println("Enter a valid quantity")
             return null
         }
         collection.add(quantity)
-        val shoes: List<Shoe> = store.shoeListMutable.filter { it.id == option1 }.take(quantity)
-        collection.addAll(shoes)
-        shoes.forEach { store.shoeListMutable.remove(it) }
+        collection.addAll(store.shoeListMutable.filter { it.id == optionId })
 
-        println("Total value: ${ shoes[0].price * quantity}")
+        var count: Int = 0
+        store.shoeListMutable.removeAll {
+            if(it.id == optionId && count<=quantity) {
+                count++
+                true
+            } else
+                false
+        }
+        val shoe: Shoe = collection.find { it is Shoe } as Shoe
+        println("Total value: ${shoe.price* quantity}")
         println("Enter your name: ")
         customer.name = readln()
         println("Enter your cpf: ")
@@ -51,14 +51,14 @@ class Customer (var name: String = "", var cpf: String = "") {
         if(option == 1) {
             println("Enter the payment: ")
             payment = readln().toDouble()
-            if(payment < shoes[0].price*quantity) {
+            if(payment < shoe.price*quantity) {
                 println("Error. Enter a suficient value")
                 return null
             }
         } else {
             println("1 - INPUT VALUE\n 2 - NO")
             val input: Int = readln().toInt()
-            var amountPending: Double = shoes[0].price * quantity
+            var amountPending: Double = shoe.price * quantity
 
             if(input == 1) {
                 println("Entry amount: ")
@@ -75,6 +75,7 @@ class Customer (var name: String = "", var cpf: String = "") {
             collection.add(installmentsPrice)
         }
 
-        return collection
+        val order = Order(collection)
+        return order
     }
 }

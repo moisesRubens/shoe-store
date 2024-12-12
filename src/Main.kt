@@ -1,10 +1,9 @@
 import kotlin.math.E
-var option: Int? = null
-val rds = ShoeStore()
 
+val rds = ShoeStore()
+var option: Int? = null
 
 fun main() {
-
     do {
         println("SISTEMA DE CALÇADOS")
         println("1 - COSTUMER \n2 - EMPLOYEE \n3 - EXIT")
@@ -19,17 +18,17 @@ fun main() {
 }
 
 fun showOptionsCostumer() {
+
     println("1 - BUY \n2 - VIEW SHOES \n3 - REGISTER \n4 - EXIT")
     val costumerOption: Int = readln().toInt()
     when(costumerOption) {
         1 -> {
             val customer = Customer()
-            val result: MutableList<Any>? = customer.buy(customer, rds)
-            if(result?.filterIsInstance<Shoe>() == null) {
+            val order: Order? = customer.buy(customer, rds)
+            if(order == null) {
                 println("You do not bought a shoe.")
                 return
             }
-            val order = Order(result)
             order.getOrder(customer)
         }
         2 -> rds.showShoeList()
