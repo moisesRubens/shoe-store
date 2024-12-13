@@ -20,17 +20,14 @@ class Customer (var name: String = "", var cpf: String = "") {
             return null
         }
         collection.add(quantity)
-        collection.addAll(store.shoeListMutable.filter { it.id == optionId })
-
-        var count: Int = 0
-        store.shoeListMutable.removeAll {
-            if(it.id == optionId && count<=quantity) {
-                count++
-                true
-            } else
-                false
+        val items = store.shoeListMutable.filter { it.id == optionId}.take(quantity)
+        collection.addAll(items)
+        items.forEach {  item ->
+            store.shoeListMutable.remove(item)
         }
-        val shoe: Shoe = collection.find { it is Shoe } as Shoe
+        val shoe: Shoe? = collection.find { it is Shoe } as? Shoe
+        if(shoe == null)
+            return null
         println("Total value: ${shoe.price* quantity}")
         println("Enter your name: ")
         customer.name = readln()
